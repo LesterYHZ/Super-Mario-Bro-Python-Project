@@ -1,0 +1,3 @@
+"""
+Mushroom makes you stronger
+"""
