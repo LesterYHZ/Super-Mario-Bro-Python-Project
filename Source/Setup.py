@@ -7,6 +7,6 @@ from . import Constant as Con
 from . import Tools 
 
 pygame.init() 
-pygame.display.set_mode(Con.SCREEN_SIZE)
+SCREEN = pygame.display.set_mode(Con.SCREEN_SIZE)
 
 GRAPHICS = Tools.load_graphics("Resources/Graphics")

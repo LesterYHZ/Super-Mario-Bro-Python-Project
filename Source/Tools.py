@@ -7,12 +7,22 @@ import random
 import os 
 
 class Game:
-    def __init__(self):
+    def __init__(self,state_dict,start_state):
         # Initialize window
         self.screen = pygame.display.get_surface() 
         self.clock = pygame.time.Clock()
+        self.key = pygame.key.get_pressed()
+        self.state_dict = state_dict 
+        self.state = state_dict[start_state]
 
-    def run(self,GRAPHICS):
+    def update(self):
+        if self.state.finished:
+            next_state = self.state.next 
+            self.state.finished = False 
+            self.state = self.state_dict[next_state]
+        self.state.update(self.screen,self.key)
+
+    def run(self):
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -21,12 +31,16 @@ class Game:
                     self.key = pygame.key.get_pressed() 
                 elif event.type == pygame.KEYUP:
                     self.key = pygame.key.get_pressed() 
+            
+            self.update()
 
+            """
             # screen update toy code
             self.screen.fill((random.randint(0,255),random.randint(0,255),random.randint(0,255)))
-
             img = get_image(GRAPHICS['Mario_and_Luigi'],80,34,16,16,(0,0,0),random.randint(0,15))
             self.screen.blit(img,(300,300))
+            """
+
             pygame.display.update()
             self.clock.tick(30) # 30 FPS 
 
